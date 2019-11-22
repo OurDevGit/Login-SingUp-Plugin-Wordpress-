@@ -67,7 +67,7 @@ class Cfmain {
 		
 		// Include utility functions.
 		include_once( CF_PATH . 'includes/cf-user-routes-class.php');
-
+		
 		// $posttypes = new Posttypes();
 		if( is_admin() ) {
 			// include_once( CF_PATH . 'includes/cf-admin-functions.php');

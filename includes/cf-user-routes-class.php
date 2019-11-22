@@ -1,6 +1,7 @@
 <?php 
 
 use \Firebase\JWT\JWT;
+use Cf\Message;
 
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -68,6 +69,14 @@ class cf_user_routes {
         );
         register_rest_route( 
             'cf/v1',
+            '/verify_otp',
+            array(
+                'methods' => 'POST',
+                'callback' => array($this, 'cf_verify_otp'),
+            )
+        );
+        register_rest_route( 
+            'cf/v1',
             '/test',
             array(
                 'methods' => 'POST',
@@ -100,6 +109,10 @@ class cf_user_routes {
         );
         
 
+    }
+    function cf_verify_otp($request){
+        $mobile = $request->get_param('mobile');
+        return $mobile;
     }
     function cf_change_password($request){
         $token = $this->validate_token(false);
@@ -433,13 +446,15 @@ class cf_user_routes {
         // return $member->get_current_user_plan();
 
         $token = $this->validate_token(false);
+        // return '123';
+        // die();
         
         if (is_wp_error($token)) {
             if ($token->get_error_code() == 'jwt_auth_no_auth_header') {
                 /** If there is a error, store it to show it after see rest_pre_dispatch */
                 return new WP_REST_Response( array(
                     'status' => false,
-                    'message' => 'Authorization header not found.'
+                    'message' => 'Authorization header not founds.'
                 ) , 503);      
             }
             
