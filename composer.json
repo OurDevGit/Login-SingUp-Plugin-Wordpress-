@@ -1,0 +1,10 @@
+{
+    "name": "sandman/kilovision-master",
+    "type": "project",
+    "require": { "firebase/php-jwt": "^5.0.0" },
+    "autoload": {
+        "psr-4" : {
+            "Cf\\": "./includes"
+        }
+    }
+}

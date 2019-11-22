@@ -1,0 +1,10 @@
+
+<VirtualHost *:80>
+	ServerName kilovision.localhost
+	ServerAlias kilovision.localhost
+	DocumentRoot "c:/wamp64/www/kv-wordpress"
+	<Directory  "c:/wamp64/www/kv-wordpress/">
+	 	AllowOverride All
+        Require local
+	</Directory>
+</VirtualHost>

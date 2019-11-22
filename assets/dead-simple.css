@@ -1,0 +1,368 @@
+/*
+* Skeleton V2.0.4
+* Copyright 2014, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 12/29/2014
+*/
+
+
+/* Table of contents
+––––––––––––––––––––––––––––––––––––––––––––––––––
+- Grid
+- Base Styles
+- Typography
+- Links
+- Buttons
+- Forms
+- Lists
+- Code
+- Tables
+- Spacing
+- Utilities
+- Clearing
+- Media Queries
+*/
+
+
+/* Grid
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box; }
+  .column,
+  .columns {
+    width: 100%;
+    float: left;
+    box-sizing: border-box; }
+  
+  /* For devices larger than 400px */
+  @media (min-width: 400px) {
+    .container {
+      width: 85%;
+      padding: 0; }
+  }
+  
+  /* For devices larger than 550px */
+  @media (min-width: 550px) {
+    .container {
+      width: 80%; }
+    .column,
+    .columns {
+      margin-left: 4%; }
+    .column:first-child,
+    .columns:first-child {
+      margin-left: 0; }
+  
+    .one.column,
+    .one.columns                    { width: 4.66666666667%; }
+    .two.columns                    { width: 13.3333333333%; }
+    .three.columns                  { width: 22%;            }
+    .four.columns                   { width: 30.6666666667%; }
+    .five.columns                   { width: 39.3333333333%; }
+    .six.columns                    { width: 48%;            }
+    .seven.columns                  { width: 56.6666666667%; }
+    .eight.columns                  { width: 65.3333333333%; }
+    .nine.columns                   { width: 74.0%;          }
+    .ten.columns                    { width: 82.6666666667%; }
+    .eleven.columns                 { width: 91.3333333333%; }
+    .twelve.columns                 { width: 100%; margin-left: 0; }
+  
+    .one-third.column               { width: 30.6666666667%; }
+    .two-thirds.column              { width: 65.3333333333%; }
+  
+    .one-half.column                { width: 48%; }
+  
+    /* Offsets */
+    .offset-by-one.column,
+    .offset-by-one.columns          { margin-left: 8.66666666667%; }
+    .offset-by-two.column,
+    .offset-by-two.columns          { margin-left: 17.3333333333%; }
+    .offset-by-three.column,
+    .offset-by-three.columns        { margin-left: 26%;            }
+    .offset-by-four.column,
+    .offset-by-four.columns         { margin-left: 34.6666666667%; }
+    .offset-by-five.column,
+    .offset-by-five.columns         { margin-left: 43.3333333333%; }
+    .offset-by-six.column,
+    .offset-by-six.columns          { margin-left: 52%;            }
+    .offset-by-seven.column,
+    .offset-by-seven.columns        { margin-left: 60.6666666667%; }
+    .offset-by-eight.column,
+    .offset-by-eight.columns        { margin-left: 69.3333333333%; }
+    .offset-by-nine.column,
+    .offset-by-nine.columns         { margin-left: 78.0%;          }
+    .offset-by-ten.column,
+    .offset-by-ten.columns          { margin-left: 86.6666666667%; }
+    .offset-by-eleven.column,
+    .offset-by-eleven.columns       { margin-left: 95.3333333333%; }
+  
+    .offset-by-one-third.column,
+    .offset-by-one-third.columns    { margin-left: 34.6666666667%; }
+    .offset-by-two-thirds.column,
+    .offset-by-two-thirds.columns   { margin-left: 69.3333333333%; }
+  
+    .offset-by-one-half.column,
+    .offset-by-one-half.columns     { margin-left: 52%; }
+  
+  }
+  
+  /* Forms
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+  .kvp-page input[type="email"],
+  .kvp-page input[type="number"],
+  .kvp-page input[type="search"],
+  .kvp-page input[type="text"],
+  .kvp-page input[type="tel"],
+  .kvp-page input[type="url"],
+  .kvp-page input[type="password"],
+  .kvp-page textarea,
+  .kvp-page select {
+    height: 38px;
+    padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+    background-color: #fff;
+    border: 1px solid #D1D1D1;
+    border-radius: 4px;
+    box-shadow: none;
+    box-sizing: border-box; }
+  /* Removes awkward default styles on some inputs for iOS */
+  .kvp-page input[type="email"],
+  .kvp-page input[type="number"],
+  .kvp-page input[type="search"],
+  .kvp-page input[type="text"],
+  .kvp-page input[type="tel"],
+  .kvp-page input[type="url"],
+  .kvp-page input[type="password"],
+  .kvp-page textarea {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none; }
+  .kvp-page textarea {
+    min-height: 65px;
+    padding-top: 6px;
+    padding-bottom: 6px; }
+  .kvp-page input[type="email"]:focus,
+  .kvp-page input[type="number"]:focus,
+  .kvp-page input[type="search"]:focus,
+  .kvp-page input[type="text"]:focus,
+  .kvp-page input[type="tel"]:focus,
+  .kvp-page input[type="url"]:focus,
+  .kvp-page input[type="password"]:focus,
+  .kvp-page textarea:focus,
+  .kvp-page select:focus {
+    border: 1px solid #33C3F0;
+    outline: 0; }
+  .kvp-page label,
+  .kvp-page legend {
+    display: block;
+    margin-bottom: .5rem;
+    font-weight: 600; }
+  .kvp-page fieldset {
+    padding: 0;
+    border-width: 0; }
+  
+  .kvp-page input[type="radio"] {
+    display: inline; }
+  .kvp-page label > .label-body {
+    display: inline-block;
+    margin-left: .5rem;
+    font-weight: normal; }
+  
+  /* Clearing
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+  
+  /* Self Clearing Goodness */
+  .container:after,
+  .row:after,
+  .u-cf {
+    content: "";
+    display: table;
+    clear: both; }
+  
+  /* Utilities
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+  .kvp-page .u-full-width {
+    width: 100%;
+    box-sizing: border-box; }
+  .kvp-page .u-max-full-width {
+    max-width: 100%;
+    box-sizing: border-box; }
+  .kvp-page .u-pull-right {
+    float: right; }
+  .kvp-page .u-pull-left {
+    float: left; }
+
+  /* Typography
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+  .kvp-page h1, .kvp-page h2,.kvp-page h3,.kvp-page h4,.kvp-page h5,.kvp-page h6 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-weight: 300; }
+  .kvp-page h1 { font-size: 4.0rem; line-height: 1.2;  letter-spacing: -.1rem;}
+  .kvp-page h2 { font-size: 3.6rem; line-height: 1.25; letter-spacing: -.1rem; }
+  .kvp-page h3 { font-size: 3.0rem; line-height: 1.3;  letter-spacing: -.1rem; }
+  .kvp-page h4 { font-size: 2.4rem; line-height: 1.35; letter-spacing: -.08rem; }
+  .kvp-page h5 { font-size: 1.8rem; line-height: 1.5;  letter-spacing: -.05rem; }
+  .kvp-page h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
+
+  /* Larger than phablet */
+  @media (min-width: 550px) {
+    .kvp-page h1 { font-size: 5.0rem; }
+    .kvp-page h2 { font-size: 4.2rem; }
+    .kvp-page h3 { font-size: 3.6rem; }
+    .kvp-page h4 { font-size: 3.0rem; }
+    .kvp-page h5 { font-size: 2.4rem; }
+    .kvp-page h6 { font-size: 1.5rem; }
+  }
+
+  .nav-tab {
+    padding: 9px 36px;
+    font-size: 17px;
+    letter-spacing: 1px;
+  }
+  .main-section {
+    padding: 20px;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 2px 3px 6px 1px #e0e0e0;
+  }
+  
+  .kvp-page .notice.is-dismissible  {
+    margin: 5px 0 -13px;
+  }
+  .kvp-page a.nav-tab:first-child {
+    margin-left: 0;
+  }
+  .kvp-page h5{
+    margin-bottom:15px;
+  }
+  .disapprove-action, .disapprove-action:hover{
+    color:#ff0000;
+  
+  }
+  a.approve-action.badge:hover {
+    background:#9db15d;
+  }
+  a.approve-action.badge {
+    background: #a1a78e;
+    padding: 3px 12px;
+    border-radius: 6px;
+    color: white;
+    /* margin-top: 46px; */
+  }
+  a.approve-action.badge {
+    background: #a1a78e;
+    padding: 3px 12px;
+    border-radius: 6px;
+    color: white;
+    border-bottom: 3px solid transparent;
+    box-shadow: 0 1px 0 #ccc;
+    /* margin-top: 46px; */
+  }
+  a.disapprove-action.badge {
+    background: #a0a0a0;
+    padding: 3px 12px;
+    border-radius: 6px;
+    color: white;
+    transition: 0.3s;
+    border-bottom: 3px solid transparent;
+    box-shadow: 0 1px 0 #ccc;
+    /* margin-top: 46px; */
+  }
+  a.disapprove-action.badge:hover {
+    background: #cc4343;
+    transition: 0.4s;
+  }
+  .kvp-page a.nav-tab {
+    border-color: #e36209 #e1e4e8 transparent;
+    border-top: 3px solid transparent;
+    border-radius: 3px 3px 0 0;
+  }
+  .kvp-page a:focus {
+    outline:0;
+  }
+  .kvp-box div#setting-error-settings_updated{
+    box-shadow: none;
+    margin-top: 0;
+  }
+  .kvp-page a.nav-tab.nav-tab-active {
+      color: #24292e;
+      border-color: #e36209 #e1e4e8 transparent;
+      background-color: white;
+  }
+  .kvp-page a.nav-tab {
+      color: #586069;
+      border-top: 3px solid transparent;
+      border-radius: 3px 3px 0 0;
+  }
+  .kvp-booking .widefat td {
+    vertical-align: middle;
+  }
+  .kvp-page .amount-text span {
+    color: #007500;
+    font-weight: 500;
+    font-size: 15px;
+}
+  .kvp-page .six.columns,.kvp-page .twelve.columns{
+    padding: 10px;
+  }
+  .six.columns.booked {
+    border: 1px solid #85e06e;
+    border-radius: 5px;
+    background: #a0ecb126;
+    position: relative;
+  }
+  
+  .six.columns.booked:after {
+    position: absolute;
+    content: "\f12a";
+    font-family: 'dashicons';
+    top: 0;
+    right: 0;
+    padding: 10px 12px;
+    font-size: 25px;
+    color: green;
+  }
+
+  .row:not(:last-child){
+    padding-bottom: 15px;
+  }
+  /* #adminmenu li a.wp-has-current-submenu .update-plugins, #adminmenu li.current a .awaiting-mod.pending{
+    background-color: #ca4a1f;
+  } */
+  /* .kvp-booking .widefat td, .widefat th {
+    padding: 10px 8px;
+  }
+  .kvp-booking #the-list td{
+    font-size: 15px;
+  } */
+  /* Media Queries
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+  /*
+  Note: The best way to structure the use of media queries is to create the queries
+  near the relevant code. For example, if you wanted to change the styles for buttons
+  on small devices, paste the mobile query code up in the buttons section and style it
+  there.
+  */
+  
+  
+  /* Larger than mobile */
+  @media (min-width: 400px) {}
+  
+  /* Larger than phablet (also point when grid becomes active) */
+  @media (min-width: 550px) {}
+  
+  /* Larger than tablet */
+  @media (min-width: 750px) {}
+  
+  /* Larger than desktop */
+  @media (min-width: 1000px) {}
+  
+  /* Larger than Desktop HD */
+  @media (min-width: 1200px) {}
+  
