@@ -70,7 +70,7 @@ class Cfmain {
 		
 		// $posttypes = new Posttypes();
 		if( is_admin() ) {
-			// include_once( CF_PATH . 'includes/cf-admin-functions.php');
+			include_once( CF_PATH . 'includes/cf-removedefault-class.php');
 		}
 		
 		// actions

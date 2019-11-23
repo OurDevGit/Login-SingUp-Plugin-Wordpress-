@@ -67,6 +67,7 @@ class cf_user_routes {
                 'callback' => array($this, 'cf_social_login'),
             )
         );
+        
         register_rest_route( 
             'cf/v1',
             '/verify_otp',
@@ -150,10 +151,11 @@ class cf_user_routes {
     function get_user_profile(){
 
         return array(
-            'name', 'avatar', 'address', 'zipcode', 'mobile', 'display_username' ,'access_token', 'fcm_token' , 'device_type'
+            'name', 'avatar', 'address', 'zipcode', 'mobile', 'display_username' ,'access_token', 'fcm_token' , 'device_type', 'first_name', 'last_name'
         );
     }
     function cf_update_profile($request){
+        
         $token = $this->validate_token(false);
         $updated = [];
         if (is_wp_error($token)) {
@@ -164,8 +166,10 @@ class cf_user_routes {
                     'message' => 'Authorization header not found.'
                 ) , 503);      
             }
-            
+            return 123;
+        die();
         }else{
+            
             $user_id = $token->data->user->id;
             $requests = $request->get_params();
             $profile_schema = $this->get_user_profile();
@@ -209,7 +213,7 @@ class cf_user_routes {
         }
     }
     function cf_test(){
-        return 'test';
+        // return 'test'. (int)time() + (DAY_IN_SECONDS * 7);
     }
     function cf_fcm_update($request){
         $token = $this->validate_token(false);
@@ -352,7 +356,7 @@ class cf_user_routes {
                 /** The iss do not match, return error */
                 return new WP_Error(
                     'jwt_auth_bad_iss',
-                    'The iss do not match with this server',
+                    'The is do not match with this server',
                     array(
                         'status' => 403,
                     )
@@ -417,11 +421,7 @@ class cf_user_routes {
             'email' => $user->user_email,
             'display_username' => $user->display_username,
             'role' => $this->cf_get_user_role($id),
-            'avatar' =>get_user_meta($id, 'avatar_url' ,true),
-            'total_booking'  => $this->get_booking_count($id),
-            'total_events'  => 0,
-            'total_tracks'  => 0,
-            'total_beats'  => 0,
+            'avatar' =>get_user_meta($id, 'avatar_url' ,true)
         );
 
         return $user_obj;
@@ -449,12 +449,23 @@ class cf_user_routes {
         // return '123';
         // die();
         
+        // echo $token->get_error_code();
+        // return '123';
+        // die();
+
         if (is_wp_error($token)) {
             if ($token->get_error_code() == 'jwt_auth_no_auth_header') {
                 /** If there is a error, store it to show it after see rest_pre_dispatch */
                 return new WP_REST_Response( array(
                     'status' => false,
                     'message' => 'Authorization header not founds.'
+                ) , 503);      
+            }
+            if ($token->get_error_code() == 'jwt_auth_invalid_token') {
+                /** If there is a error, store it to show it after see rest_pre_dispatch */
+                return new WP_REST_Response( array(
+                    'status' => false,
+                    'message' => 'Invalid token or expired.'
                 ) , 503);      
             }
             
@@ -473,7 +484,6 @@ class cf_user_routes {
             }
         }
         
-        /** Everything is ok, return the user ID stored in the token*/
         
     }
     function get_nopass_token($user){
@@ -537,7 +547,7 @@ class cf_user_routes {
         $requests = $request->get_params();
         $user_exist = email_exists($useremail);
         if(!$user_exist){
-            $username = $request->get_param('username').time() ? $request->get_param('username').time() : null;
+            $username = $request->get_param('username') ? $request->get_param('username') : $useremail;
             $userpass = $request->get_param('password') ? $request->get_param('password') : null;
             $user = wp_create_user( $username, $userpass , $useremail );
             $token = $this->get_access_token( $username, $userpass);
