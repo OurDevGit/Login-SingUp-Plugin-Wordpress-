@@ -483,8 +483,7 @@ class cf_user_routes {
                 return new WP_REST_Response( $this->jwt_error , 200);  
             }
         }
-        
-        
+    
     }
     function get_nopass_token($user){
         $issuedAt = time();
