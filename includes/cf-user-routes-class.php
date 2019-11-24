@@ -3,7 +3,6 @@
 use \Firebase\JWT\JWT;
 use Cf\Message;
 
-
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if( ! class_exists('cf_user_routes') ) :
@@ -73,17 +72,26 @@ class cf_user_routes {
             '/verify_otp',
             array(
                 'methods' => 'POST',
-                'callback' => array($this, 'cf_verify_otp'),
+                'callback' => array($this, 'cf_verify_sent_otp'),
             )
         );
         register_rest_route( 
             'cf/v1',
-            '/test',
+            '/send_otp',
             array(
                 'methods' => 'POST',
-                'callback' => array($this, 'cf_test'),
+                'callback' => array($this, 'cf_send_otp'),
             )
         );
+        register_rest_route( 
+            'cf/v1',
+            '/verify_otp',
+            array(
+                'methods' => 'POST',
+                'callback' => array($this, 'cf_verify_sent_otp'),
+            )
+        );
+        
         register_rest_route( 
             'cf/v1',
             '/fcm_update',
@@ -111,10 +119,10 @@ class cf_user_routes {
         
 
     }
-    function cf_verify_otp($request){
-        $mobile = $request->get_param('mobile');
-        return $mobile;
-    }
+    // function cf_verify_otp($request){
+    //     $mobile = $request->get_param('mobile');
+    //     return $mobile;
+    // }
     function cf_change_password($request){
         $token = $this->validate_token(false);
 
@@ -212,8 +220,83 @@ class cf_user_routes {
             return true;
         }
     }
-    function cf_test(){
-        // return 'test'. (int)time() + (DAY_IN_SECONDS * 7);
+    
+
+    function create_otp_table(){
+        global $wpdb;
+        $charset_collate = $wpdb->get_charset_collate();
+        $table = $wpdb->prefix.'twillio_fresh_otps';
+        $sql = "CREATE TABLE `$table` (
+            `id` int(11) NOT NULL,
+            `mobile` varchar(20) NOT NULL,
+            `otp` int(10) NOT NULL,
+            `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+            `verified` enum('1','0') NOT NULL DEFAULT '0'
+          )";
+
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sql );
+
+
+    }
+    function store_opt($otp, $mobile){
+        global $wpdb;
+        $otp_table = $wpdb->prefix.'twillio_fresh_otps';
+        $booking_perms = array(
+            'mobile' => $mobile,
+            'otp' => $otp,
+        );
+        // return $booking_perms; 
+        $wpdb->query("DELETE FROM $otp_table WHERE mobile=$mobile");
+        $result = $wpdb->insert( $otp_table, $booking_perms);
+        if (is_wp_error($result)) {
+            return false;
+        }else{
+            return true;
+        }
+        // return $this->response;
+    }
+    function verfiy_otp($otp,$mobile){
+        global $wpdb;
+        $otp_table = $wpdb->prefix.'twillio_fresh_otps';
+
+        $otp = $wpdb->get_results("SELECT otp FROM $otp_table WHERE mobile=$mobile and otp=$otp");
+        if(!empty($otp)){
+            return true;
+        }
+        return false;
+
+    }
+    function cf_verify_sent_otp($request){
+        $mobile = $request->get_param('mobile');
+        $otp = $request->get_param('otp');
+        $result = $this->verfiy_otp($otp,$mobile);
+        if($result == true){
+            $this->response = array(
+                'success' => true,
+                'message' => 'OTP has been verified.'
+            );
+        }else{
+            $this->response = array(
+                'success' => true,
+                'message' => 'Invalid OTP try againss.'
+            );
+        }
+        return $this->response;
+    }
+    function cf_send_otp($request){
+        // return $mobile;
+        $message = new Message();
+        // die();
+        $mobile = $request->get_param('mobile');
+        $otp = rand(0,9999);
+        $this->store_opt($otp, $mobile);
+        $body =  "Please use '{$otp}' OTP to verify phone number."; 
+        // return $mobile;
+        // die();
+        var_dump( $message->send_message('+'.trim($mobile), $body) );
+        die();
+
     }
     function cf_fcm_update($request){
         $token = $this->validate_token(false);
