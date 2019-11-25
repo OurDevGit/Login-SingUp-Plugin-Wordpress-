@@ -154,6 +154,9 @@ class cf_user_routes {
             'name', 'avatar', 'address', 'zipcode', 'mobile', 'display_username' ,'access_token', 'fcm_token' , 'device_type', 'first_name', 'last_name'
         );
     }
+    function get_username_from_email($email){   
+        return $domain = strstr($email, '@',-1);
+    }
     function cf_update_profile($request){
         
         $token = $this->validate_token(false);
@@ -546,7 +549,7 @@ class cf_user_routes {
         $requests = $request->get_params();
         $user_exist = email_exists($useremail);
         if(!$user_exist){
-            $username = $request->get_param('username') ? $request->get_param('username') : $useremail;
+            $username = $request->get_param('username') ? $request->get_param('username') : $this->get_username_from_email($useremail);
             $userpass = $request->get_param('password') ? $request->get_param('password') : null;
             $user = wp_create_user( $username, $userpass , $useremail );
             $token = $this->get_access_token( $username, $userpass);

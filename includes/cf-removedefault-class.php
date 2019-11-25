@@ -17,8 +17,6 @@ class kvp_admin extends cf_user_routes{
 		$this->wpdb = $wpdb;
 		add_action('admin_menu', 			array($this, 'kvp_admin_menu'));
 		// add_action( 'admin_init', array( $this, 'kv_options_init' ) );
-		
-		add_action( 'login_enqueue_scripts', array( $this, 'kv_change_admin_logo' ) );
 		add_action( 'login_headerurl', array( $this, 'kv_change_admin_logo_url' ),1,10 );
 		add_filter('manage_users_columns',array($this, 'kvp_remove_users_columns' ),11,1);
 		add_filter('admin_enqueue_scripts',array($this, 'load_admin_styles' ));
@@ -27,11 +25,17 @@ class kvp_admin extends cf_user_routes{
 		add_filter('pre_site_transient_update_themes',array($this,'remove_core_updates'));
 		// add_action( 'rest_api_init' , array($this, 'pricing_register_routes') );
 		add_action( 'delete_user', array($this, 'kvp_when_delete_user') );
-
-
+		
+		
 		// $this->roles = $this->get_roles();
+		add_filter( 'manage_users_custom_column',array($this, 'manage_users_username_section'));
 	}	
 	
+	function manage_users_username_section( $val, $col, $uid ) {
+		// if ( 'name' === $col )
+		// 	return get_the_author_meta( 'first_name', $uid );
+		die();
+	}
 	function kvp_when_delete_user( $user_id ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix. 'booking_list';
@@ -58,6 +62,9 @@ class kvp_admin extends cf_user_routes{
 		// $column['DisplayName']
 		return $column;
 	}
+	
+
+
 	function kv_change_admin_logo_url($url){
 		return site_url();
 	}

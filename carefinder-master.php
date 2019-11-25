@@ -72,10 +72,26 @@ class Cfmain {
 		if( is_admin() ) {
 			include_once( CF_PATH . 'includes/cf-removedefault-class.php');
 		}
+		add_action( 'login_enqueue_scripts', array( $this, 'kv_change_admin_logo' ) );
 		
 		// actions
 		add_action('init',	array($this, 'init'), 5);
 		
+	}
+	function kv_change_admin_logo(){
+		$logopath = CF_URL . 'assets/cf-logo.png';
+		
+		?>
+		<style type="text/css"> 
+			body.login div#login h1 a {
+			background-image: url(<?php echo $logopath; ?>);  //Add your own logo image in this url 
+			padding-bottom: 30px; 
+			} 
+			body.login{
+				background:#d4dbef;
+			}
+		</style>
+		<?php
 	}
 	public function init(){
 		
