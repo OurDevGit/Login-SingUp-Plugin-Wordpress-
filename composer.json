@@ -1,7 +1,7 @@
 {
     "name": "sandman/kilovision-master",
     "type": "project",
-    "require": { "firebase/php-jwt": "^5.0.0",
+    "require": { "firebase/php-jwt": "^6.0.0",
         "twilio/sdk": "^5.39" },
     "autoload": {
         "psr-4" : {
